@@ -35,7 +35,7 @@ public class PostController {
         post.addComment(postComment);
         postRepository.save(post);
 
-        return "index";
+        return "home";
     }
 
     @RequestMapping("/post/{id}")
