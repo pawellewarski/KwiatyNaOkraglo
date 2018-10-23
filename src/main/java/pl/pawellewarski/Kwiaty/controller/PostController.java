@@ -9,6 +9,8 @@ import pl.pawellewarski.Kwiaty.model.entities.PostComment;
 import pl.pawellewarski.Kwiaty.repository.PostRepository;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -27,7 +29,15 @@ public class PostController {
     @PostMapping("/addPost")
     public String addPost(@RequestParam(value = "title") String titleParam,
                           @RequestParam(value = "content") String content,
-                          @RequestParam(value = "imgHtml") String imgHtml) {
+                          @RequestParam(value = "imgHtml") String imgHtml,
+                          Model model) {
+        List<Post> postList = new ArrayList<>();
+        Iterable<Post> postIterable = postRepository.findAll();
+        for (Post post : postIterable) {
+            postList.add(post);}
+        model.addAttribute("posts", postList);
+
+
         Post post = new Post(titleParam, content, imgHtml);
         PostComment postComment = new PostComment();
         postComment.setComment(titleParam);
@@ -38,7 +48,7 @@ public class PostController {
         return "home";
     }
 
-    @RequestMapping("/post/{id}")
+    @GetMapping("/post/{id}")
     public String post(@PathVariable Long id,
                        Model model) {
         Optional<Post> postOptional = postRepository.findById(id);
