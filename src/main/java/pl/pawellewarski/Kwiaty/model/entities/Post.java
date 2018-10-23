@@ -30,6 +30,10 @@ public class Post {
     @Size(min = 1, max = 256)
     private String postContent;
 
+    @NotBlank
+    @Size(min = 1)
+    private String postImgHtml;
+
     @Embedded
     private AuditEntity auditEntity = new AuditEntity();
 
@@ -43,10 +47,10 @@ public class Post {
     @Setter
     private User user;
 
-
-    public Post(@NotBlank @Size(min = 3, max = 15) String postTitle, @NotBlank @Size(min = 1, max = 256) String postContent) {
+    public Post(@NotBlank @Size(min = 3, max = 15) String postTitle, @NotBlank @Size(min = 1, max = 256) String postContent, @NotBlank @Size(min = 1) String postImgHtml) {
         this.postTitle = postTitle;
         this.postContent = postContent;
+        this.postImgHtml = postImgHtml;
     }
 
     public void addComment(PostComment postComment) {
