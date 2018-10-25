@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.pawellewarski.Kwiaty.model.entities.Post;
-import pl.pawellewarski.Kwiaty.repository.PostRepository;
+import pl.pawellewarski.Kwiaty.model.entities.Category;
+import pl.pawellewarski.Kwiaty.repository.CategoryRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,25 +14,21 @@ import java.util.List;
 public class MainController {
 
     @Autowired
-    private PostRepository postRepository;
+    private CategoryRepository categoryRepository;
 
     @RequestMapping("/")
     public String home(Model model){
 
 
-        List<Post> postList = new ArrayList<>();
+        List<Category> categoryList = new ArrayList<>();
 
-        Iterable<Post> postIterable = postRepository.findAll();
+        Iterable<Category> categoryIterable = categoryRepository.findAll();
 
-        for (Post post : postIterable) {
-            postList.add(post);
+        for (Category category : categoryIterable) {
+            categoryList.add(category);
         }
 
-        model.addAttribute("posts", postList);
+        model.addAttribute("categories", categoryList);
         return "home";
     }
-
-
-
-
 }

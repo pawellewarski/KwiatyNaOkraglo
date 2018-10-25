@@ -60,17 +60,17 @@
 
     <h1>Tu dodasz posta</h1>
     <form th:action="@{/addPost}" method="post">
-        <div class="form-group row">
+        <div class="form-group col-sm-8">
             <label for="title">Example label</label>
             <input type="text" th:name="title" class="form-control" id="title" placeholder="Tytuł">
         </div>
 
-        <div class="form-group row">
+        <div class="form-group col-sm-8">
             <label for="content">Terść posta</label>
             <textarea  th:name="content" class="form-control" id="content" placeholder="Tu wpisz swój post" rows="5">
 
         </textarea>
-            <div class="form-group row">
+            <div class="form-group col-sm-8">
                 <label for="imgHtml">Terść posta</label>
                 <textarea  th:name="imgHtml" class="form-control" id="imgHtml" placeholder="Tu wpisz swój post" rows="5">
 

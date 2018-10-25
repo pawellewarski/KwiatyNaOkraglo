@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -44,7 +44,7 @@
                         <li><a href="#" class="text-white">Like on Facebook</a></li>
                         <li><a href="#" class="text-white">Email me</a></li>
                         <li><a href="/addPost" class="text-white">Dodaj post</a></li>
-                        <li><a href="/addCategory" class="text-white">Dodaj kategorie</a></li>
+                        <li><a href="/addCategory" class="text-white">Dodaj kategorię</a></li>
                     </ul>
                 </div>
             </div>
@@ -70,68 +70,45 @@
 
 <main role="main">
 
-    <div class="container marketing">
-
-        <div class="row" th:each="category : ${categories}">
-            <div class="col-lg-4">
-                <img class="rounded-circle" th:src="@{${category.categoryImg}}" alt="Kategoria" width="140" height="140"></img>
-                <h2 th:text="${category.categoryName}"></h2>
-                <p th:text="${category.categoryDescription}"></p>
-                <form class="btn-group">
-                    <button type="submit" th:formAction="@{'/category/' + ${category.id}}" class="btn btn-sm btn-outline-secondary">Obejrzyj</button>
-                </form>
-            </div>
-
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Album example</h1>
+            <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator,
+                etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
+            <p>
+                <a href="#" class="btn btn-primary my-2">Main call to action</a>
+                <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+            </p>
         </div>
+    </section>
 
-        <hr class="featurette-divider">
+    <div class="album py-5 bg-light">
+        <div class="container">
 
-        <div class="row featurette">
-            <div class="col-md-7">
-                <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            </div>
-            <div class="col-md-5">
-                <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-            </div>
-        </div>
+            <div class="row">
+                <div th:each="post : ${posts}" class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img class="card-img-top" th:src="@{${post.postImgHtml}}" alt="Test">
+                        <div class="card-body">
+                            <p class="card-text" th:text="@{${post.postTitle}}"></p>
+                            <p class="card-text" th:text="@{${post.postContent}}"></p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <form class="btn-group" method="get" th:action= "@{'/post/' + ${post.id}}" >
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary" >Obejrzyj</button>
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary"  th:formaction= "@{'/post/comment' + ${post.id}}" >Komentuj</button>
+                                    </form>
 
-        <hr class="featurette-divider">
-
-        <div class="row featurette">
-            <div class="col-md-7 order-md-2">
-                <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            </div>
-            <div class="col-md-5 order-md-1">
-                <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-            </div>
-        </div>
-
-        <hr class="featurette-divider">
-
-        <div class="row featurette">
-            <div class="col-md-7">
-                <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            </div>
-            <div class="col-md-5">
-                <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+                                </div>
+                                <small class="text-muted">9 mins</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
 
-        <hr class="featurette-divider">
-
-        <!-- /END THE FEATURETTES -->
-
-    </div><!-- /.container -->
-
-
-    <!-- FOOTER -->
-    <footer class="container">
-        <p class="float-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2017-2018 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-    </footer>
 </main>
 
 <footer class="text-muted">

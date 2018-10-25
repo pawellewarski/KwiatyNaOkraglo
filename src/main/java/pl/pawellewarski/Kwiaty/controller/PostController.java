@@ -45,9 +45,10 @@ public class PostController {
         post.addComment(postComment);
         postRepository.save(post);
 
-        return "home";
+        return "redirect:/";
     }
 
+/*
     @GetMapping("/post/{id}")
     public String post(@PathVariable Long id,
                        Model model) {
@@ -56,7 +57,6 @@ public class PostController {
         postOptional.ifPresent(post -> {
             model.addAttribute("post", post);
         });
-
 
         return "post";
     }
@@ -87,7 +87,8 @@ public class PostController {
         });
 
         return "redirect:/post/" + postId;
-    }
 
+    }
+*/
 
 }
