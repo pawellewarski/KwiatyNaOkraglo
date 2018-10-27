@@ -18,13 +18,8 @@ import java.util.Set;
 public class Category {
 
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
-            mappedBy = "categories")
-    private Set<Post> posts = new HashSet<>();
+    @ManyToMany(mappedBy = "categories")
+    private Set<Post> posts = new HashSet<Post>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

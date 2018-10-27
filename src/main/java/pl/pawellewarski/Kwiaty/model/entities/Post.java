@@ -47,13 +47,9 @@ public class Post {
     @Setter
     private User user;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
+    @ManyToMany
     @JoinTable(name = "post_category",
-            joinColumns = { @JoinColumn(name = "post_id") },
+            joinColumns = { @JoinColumn(name = "post_id")},
             inverseJoinColumns = { @JoinColumn(name = "category_id") })
     private Set<Category> categories = new HashSet<>();
 

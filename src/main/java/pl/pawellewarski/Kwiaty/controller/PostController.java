@@ -11,9 +11,7 @@ import pl.pawellewarski.Kwiaty.repository.CategoryRepository;
 import pl.pawellewarski.Kwiaty.repository.PostRepository;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class PostController {
@@ -26,7 +24,7 @@ public class PostController {
     private CategoryRepository categoryRepository;
 
     @GetMapping("/addPost")
-    public String addPost(Model model){
+    public String addPost(Model model) {
 
         List<Category> categoryList = new ArrayList<>();
 
@@ -45,11 +43,13 @@ public class PostController {
     public String addPost(@RequestParam(value = "title") String titleParam,
                           @RequestParam(value = "content") String content,
                           @RequestParam(value = "imgHtml") String imgHtml,
+                          @RequestParam(value = "category") Long[] categoryId,
                           Model model) {
         List<Post> postList = new ArrayList<>();
         Iterable<Post> postIterable = postRepository.findAll();
         for (Post post : postIterable) {
-            postList.add(post);}
+            postList.add(post);
+        }
         model.addAttribute("posts", postList);
 
 
@@ -57,10 +57,16 @@ public class PostController {
         PostComment postComment = new PostComment();
         postComment.setComment(titleParam);
 
+        Set<Category> categoryList = new HashSet<>();
+        for (Long id : categoryId) {
+            categoryList.add(categoryRepository.getOne(id));
+        }
+
+        post.setCategories(categoryList);
+
+
         post.addComment(postComment);
         postRepository.save(post);
-
-
 
         return "redirect:/";
     }
