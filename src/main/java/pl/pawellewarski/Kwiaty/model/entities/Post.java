@@ -47,6 +47,16 @@ public class Post {
     @Setter
     private User user;
 
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "post_category",
+            joinColumns = { @JoinColumn(name = "post_id") },
+            inverseJoinColumns = { @JoinColumn(name = "category_id") })
+    private Set<Category> categories = new HashSet<>();
+
     public Post(@NotBlank @Size(min = 3, max = 15) String postTitle, @NotBlank @Size(min = 1, max = 256) String postContent, @NotBlank @Size(min = 1) String postImgHtml) {
         this.postTitle = postTitle;
         this.postContent = postContent;

@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.pawellewarski.Kwiaty.model.entities.Category;
 import pl.pawellewarski.Kwiaty.model.entities.Post;
 import pl.pawellewarski.Kwiaty.model.entities.PostComment;
+import pl.pawellewarski.Kwiaty.repository.CategoryRepository;
 import pl.pawellewarski.Kwiaty.repository.PostRepository;
 
 import javax.transaction.Transactional;
@@ -20,8 +22,21 @@ public class PostController {
     @Autowired
     private PostRepository postRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @GetMapping("/addPost")
-    public String addPost(){
+    public String addPost(Model model){
+
+        List<Category> categoryList = new ArrayList<>();
+
+        Iterable<Category> categoryIterable = categoryRepository.findAll();
+
+        for (Category category : categoryIterable) {
+            categoryList.add(category);
+        }
+
+        model.addAttribute("categories", categoryList);
 
         return "addPost";
     }
@@ -44,6 +59,8 @@ public class PostController {
 
         post.addComment(postComment);
         postRepository.save(post);
+
+
 
         return "redirect:/";
     }
