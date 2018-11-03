@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.sql.Blob;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,6 +30,7 @@ public class Category {
     @Size(min = 3, max = 50)
     private String categoryName;
 
+    @NotBlank
     private String categoryImg;
 
     @NotBlank
@@ -38,7 +40,7 @@ public class Category {
     @Embedded
     private AuditEntity auditEntity = new AuditEntity();
 
-    public Category(@NotBlank @Size(min = 3, max = 50) String categoryName, String categoryImg, @NotBlank @Size(min = 3, max = 500) String categoryDescription) {
+    public Category(@NotBlank @Size(min = 3, max = 50) String categoryName, @NotBlank String categoryImg, @NotBlank @Size(min = 3, max = 500) String categoryDescription) {
         this.categoryName = categoryName;
         this.categoryImg = categoryImg;
         this.categoryDescription = categoryDescription;

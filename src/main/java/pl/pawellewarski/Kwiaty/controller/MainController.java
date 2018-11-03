@@ -26,6 +26,7 @@ public class MainController {
 
         for (Category category : categoryIterable) {
             categoryList.add(category);
+            System.out.println(category.getCategoryImg());
         }
 
         model.addAttribute("categories", categoryList);

@@ -10,7 +10,7 @@ import pl.pawellewarski.Kwiaty.model.entities.PostComment;
 import pl.pawellewarski.Kwiaty.repository.CategoryRepository;
 import pl.pawellewarski.Kwiaty.repository.PostRepository;
 
-import javax.transaction.Transactional;
+import java.sql.Blob;
 import java.util.*;
 
 @Controller
@@ -42,7 +42,7 @@ public class PostController {
     @PostMapping("/addPost")
     public String addPost(@RequestParam(value = "title") String titleParam,
                           @RequestParam(value = "content") String content,
-                          @RequestParam(value = "imgHtml") String imgHtml,
+                          @RequestParam(value = "imgHtml") Blob imgHtml,
                           @RequestParam(value = "category") Long[] categoryId,
                           Model model) {
         List<Post> postList = new ArrayList<>();

@@ -1,7 +1,7 @@
 <!doctype html>
-<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml" xmlns: xmlns:width="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8">
+      <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -40,8 +40,12 @@
                 <div class="col-sm-4 offset-md-1 py-4">
                     <h4 class="text-white">Contact</h4>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white">Follow on Twitter</a></li>
-                        <li><a href="#" class="text-white">Like on Facebook</a></li>
+                        <li><a href="#" class=" ">Follow on Twitter</a></li>
+
+                        <div class="fb-like text-white" data-href="https://web.facebook.com/kwiatynaokraglo/"
+                             data-layout="button_count" data-action="like" data-size="large" data-show-faces="true"
+                             data-share="true">Polub nas
+                        </div>
                         <li><a href="#" class="text-white">Email me</a></li>
                         <li><a href="/addPost" class="text-white">Dodaj post</a></li>
                         <li><a href="/addCategory" class="text-white">Dodaj kategorie</a></li>
@@ -70,85 +74,56 @@
 
 <main role="main">
 
-    <div class="container marketing">
 
-        <div class="row" >
-            <div class="col-lg-4" th:each="category : ${categories}">
-                <img class="rounded-circle" th:src="@{${category.categoryImg}}" alt="Kategoria" width="200" height="250"></img>
-                <!--todo change view of categories-->
-                <h2 th:text="${category.categoryName}"></h2>
-                <p th:text="${category.categoryDescription}"></p>
-                <form class="btn-group">
-                    <button type="submit" th:formAction="@{'/category/' + ${category.id}}" class="btn btn-sm btn-outline-secondary">Obejrzyj</button>
-                </form>
-            </div>
+    <div class="album py-5 bg-light">
+        <div class="container">
 
-        </div>
-
-        <hr class="featurette-divider">
-
-        <div class="row featurette">
-            <div class="col-md-7">
-                <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            </div>
-            <div class="col-md-5">
-                <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-            </div>
-        </div>
-
-        <hr class="featurette-divider">
-
-        <div class="row featurette">
-            <div class="col-md-7 order-md-2">
-                <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            </div>
-            <div class="col-md-5 order-md-1">
-                <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+            <div class="row">
+                <div th:each="category : ${categories}" class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img class="card-img-top" th:src="${category.categoryImg}" alt="Kategoria">
+                        <div class="card-body">
+                            <p class="card-text" th:text="@{${category.categoryName}}"></p>
+                            <p class="card-text" th:text="@{${category.categoryDescription}}"></p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <form class="btn-group">
+                                        <button type="submit" th:formAction="@{'/category/' + ${category.id}}"
+                                                class="btn btn-sm btn-outline-secondary">Obejrzyj
+                                        </button>
+                                    </form>
+                                </div>
+                                <small class="text-muted">9 mins</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <hr class="featurette-divider">
-
-        <div class="row featurette">
-            <div class="col-md-7">
-                <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            </div>
-            <div class="col-md-5">
-                <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-            </div>
-        </div>
-
-        <hr class="featurette-divider">
-
-        <!-- /END THE FEATURETTES -->
-
-    </div><!-- /.container -->
-
-
-    <!-- FOOTER -->
-    <footer class="container">
-        <p class="float-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2017-2018 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-    </footer>
-</main>
-
-<footer class="text-muted">
-    <div class="container">
-        <p class="float-right">
-            <a href="#">Back to top</a>
-        </p>
-        <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-        <p>New to Bootstrap? <a href="../../">Visit the homepage</a> or read our <a href="../../getting-started/">getting
-            started guide</a>.</p>
     </div>
+
+
+</main>
+<footer class="text-muted">
+    <div class="container" style="width:100%">
+        <div class="row">
+            <div class="fb-page" data-href="https://web.facebook.com/kwiatynaokraglo/" data-small-header="false"
+                 data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                <blockquote cite="https://web.facebook.com/kwiatynaokraglo/" class="fb-xfbml-parse-ignore">
+                    <a href="https://web.facebook.com/kwiatynaokraglo/">Kwiaty na okrągło</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+    <p class="float-right col-12">
+        <a href="#">Przejdź do góry</a>
+    </p>
+
+    <p>Przedstawione kwoty nie stanowią oferty, a są jedynie orienatcyjnym kosztem podobnych kompozycji. W celu
+        otrzymania indywidualnej wyceny skontaktuj się z nami telefonicznie, mailowo lub na Fecebooku.</p>
+
 </footer>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -156,5 +131,17 @@
 <script src="../../assets/js/vendor/popper.min.js"></script>
 <script src="../../dist/js/bootstrap.min.js"></script>
 <script src="../../assets/js/vendor/holder.min.js"></script>
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s);
+js.id = id;
+js.src = 'https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v3.2';
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
 </body>
 </html>

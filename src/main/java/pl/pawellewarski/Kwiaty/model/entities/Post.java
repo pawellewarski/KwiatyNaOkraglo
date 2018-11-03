@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.sql.Blob;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,9 +31,8 @@ public class Post {
     @Size(min = 1, max = 256)
     private String postContent;
 
-    @NotBlank
-    @Size(min = 1)
-    private String postImgHtml;
+    @Lob
+    private Blob postImg;
 
     @Embedded
     private AuditEntity auditEntity = new AuditEntity();
@@ -53,10 +53,10 @@ public class Post {
             inverseJoinColumns = { @JoinColumn(name = "category_id") })
     private Set<Category> categories = new HashSet<>();
 
-    public Post(@NotBlank @Size(min = 3, max = 15) String postTitle, @NotBlank @Size(min = 1, max = 256) String postContent, @NotBlank @Size(min = 1) String postImgHtml) {
+    public Post(@NotBlank @Size(min = 3, max = 15) String postTitle, @NotBlank @Size(min = 1, max = 256) String postContent, Blob postImg) {
         this.postTitle = postTitle;
         this.postContent = postContent;
-        this.postImgHtml = postImgHtml;
+        this.postImg = postImg;
     }
 
     public void addComment(PostComment postComment) {
