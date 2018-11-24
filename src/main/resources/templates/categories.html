@@ -88,7 +88,8 @@
             <div class="row">
                 <div th:each="post : ${posts}" class="col-md-4">
                     <div class="card mb-4 shadow-sm">
-                        <img class="card-img-top" th:href="@{'uploads/' + ${post.postImg}}" alt="Zdjęcie">
+                        <img class="card-img-top" th:src="@{'/uploads/' + ${post.getPostImg()}}" alt="Zdjęcie">
+                        <!--<a th:href="@{'uploads/' + ${post.getPostImg()}}">-->
                         <div class="card-body">
                             <p class="card-text" th:text="@{${post.postTitle}}"></p>
                             <p class="card-text" th:text="@{${post.postContent}}"></p>
