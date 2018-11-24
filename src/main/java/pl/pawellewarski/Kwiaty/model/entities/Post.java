@@ -31,8 +31,8 @@ public class Post {
     @Size(min = 1, max = 256)
     private String postContent;
 
-    @Lob
-    private Blob postImg;
+    @NotBlank
+    private String postImg;
 
     @Embedded
     private AuditEntity auditEntity = new AuditEntity();
@@ -53,7 +53,7 @@ public class Post {
             inverseJoinColumns = { @JoinColumn(name = "category_id") })
     private Set<Category> categories = new HashSet<>();
 
-    public Post(@NotBlank @Size(min = 3, max = 15) String postTitle, @NotBlank @Size(min = 1, max = 256) String postContent, Blob postImg) {
+    public Post(@NotBlank @Size(min = 3, max = 15) String postTitle, @NotBlank @Size(min = 1, max = 256) String postContent, @NotBlank String postImg) {
         this.postTitle = postTitle;
         this.postContent = postContent;
         this.postImg = postImg;

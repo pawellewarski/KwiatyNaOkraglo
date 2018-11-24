@@ -1,20 +1,28 @@
 package pl.pawellewarski.Kwiaty.controller;
 
+import org.apache.tomcat.jni.File;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pl.pawellewarski.Kwiaty.model.entities.Category;
 import pl.pawellewarski.Kwiaty.model.entities.Post;
 import pl.pawellewarski.Kwiaty.model.entities.PostComment;
 import pl.pawellewarski.Kwiaty.repository.CategoryRepository;
 import pl.pawellewarski.Kwiaty.repository.PostRepository;
 
-import java.sql.Blob;
+import javax.transaction.Transactional;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 @Controller
 public class PostController {
+
+    public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/uploads";
 
 
     @Autowired
@@ -42,7 +50,8 @@ public class PostController {
     @PostMapping("/addPost")
     public String addPost(@RequestParam(value = "title") String titleParam,
                           @RequestParam(value = "content") String content,
-                          @RequestParam(value = "imgHtml") Blob imgHtml,
+                          @RequestParam(value = "file") MultipartFile file,
+                          @RequestParam(value = "price") Double price,
                           @RequestParam(value = "category") Long[] categoryId,
                           Model model) {
         List<Post> postList = new ArrayList<>();
@@ -52,8 +61,15 @@ public class PostController {
         }
         model.addAttribute("posts", postList);
 
+        Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
+        try {
+            Files.write(fileNameAndPath, file.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        Post post = new Post(titleParam, content, imgHtml);
+
+        Post post = new Post(titleParam, content, file.getOriginalFilename());
         PostComment postComment = new PostComment();
         postComment.setComment(titleParam);
 
@@ -68,50 +84,7 @@ public class PostController {
         post.addComment(postComment);
         postRepository.save(post);
 
-        return "redirect:/";
+        return "home";
     }
-
-/*
-    @GetMapping("/post/{id}")
-    public String post(@PathVariable Long id,
-                       Model model) {
-        Optional<Post> postOptional = postRepository.findById(id);
-
-        postOptional.ifPresent(post -> {
-            model.addAttribute("post", post);
-        });
-
-        return "post";
-    }
-
-    @Transactional
-    @RequestMapping("/delete/{id}")
-    @ResponseBody
-    public String deletePost(@PathVariable Long id) {
-
-        postRepository.deleteById(id);
-
-        return ("Usunięto " + id);
-    }
-
-
-    @PostMapping("/post/addComment")
-    public String addComment(@RequestParam String commentBody,
-                             @RequestParam Long postId) {
-        PostComment postComment = new PostComment();
-
-        postComment.setComment(commentBody);
-
-
-        Optional<Post> postOptional = postRepository.findById(postId);
-        postOptional.ifPresent(post -> {
-            post.addComment(postComment);
-            postRepository.save(post);
-        });
-
-        return "redirect:/post/" + postId;
-
-    }
-*/
 
 }
