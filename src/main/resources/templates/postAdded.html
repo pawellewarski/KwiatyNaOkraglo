@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${post.postTitle}"></title>
-</head>
-<body>
-
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -54,6 +46,7 @@
                         <li><a href="#" class="text-white">Like on Facebook</a></li>
                         <li><a href="#" class="text-white">Email me</a></li>
                         <li><a href="/addPost" class="text-white">Dodaj post</a></li>
+                        <li><a href="/addCategory" class="text-white">Dodaj kategorie</a></li>
                     </ul>
                 </div>
             </div>
@@ -61,13 +54,13 @@
     </div>
     <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container d-flex justify-content-between">
-            <a href="#" class="navbar-brand d-flex align-items-center">
+            <a href="/" class="navbar-brand d-flex align-items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
                     <circle cx="12" cy="13" r="4"></circle>
                 </svg>
-                <strong>Album</strong>
+                <strong>Kwiaty na okrągło</strong>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
                     aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,27 +71,9 @@
 </header>
 
 <main role="main">
-    <div class="card mb-4 shadow-sm">
-        <img class="card-img-top" th:src="@{'/uploads/' + ${post.getPostImg()}}" alt="Zdjęcie">
-        <!--<a th:href="@{'uploads/' + ${post.getPostImg()}}">-->
-        <div class="card-body">
-            <p class="card-text" th:text="@{${post.postTitle}}"></p>
-            <p class="card-text" th:text="@{${post.postContent}}"></p>
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                    <form class="btn-group" method="get" th:action="@{'/post/delete/' + ${post.id}}">
-                        <button type="submit" class="btn btn-sm btn-outline-secondary">Usuń</button>
-                        <button type="submit" class="btn btn-sm btn-outline-secondary"
-                                th:formaction="@{'/post/comment/' + ${post.id}}">Komentuj</button>
-                    </form>
-
-                </div>
-                <small class="text-muted">9 mins</small>
-            </div>
-        </div>
+    <div th:if="${msg}">
+        <span th:text="${msg}"></span>
     </div>
-
-
 </main>
 
 <footer class="text-muted">
@@ -122,9 +97,5 @@
 <script src="../../assets/js/vendor/popper.min.js"></script>
 <script src="../../dist/js/bootstrap.min.js"></script>
 <script src="../../assets/js/vendor/holder.min.js"></script>
-</body>
-</html>
-
-
 </body>
 </html>

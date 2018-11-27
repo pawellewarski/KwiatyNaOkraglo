@@ -47,7 +47,7 @@ public class PostController {
         return "addPost";
     }
 
-    @PostMapping("/addPost")
+    @RequestMapping("/postAdded")
     public String addPost(@RequestParam(value = "title") String titleParam,
                           @RequestParam(value = "content") String content,
                           @RequestParam(value = "file") MultipartFile file,
@@ -84,8 +84,33 @@ public class PostController {
         post.addComment(postComment);
         postRepository.save(post);
 
-
-        return "home";
+        model.addAttribute("msg", "Dodano post " + post.getPostTitle());
+        return "postAdded";
     }
+
+    @RequestMapping("/post/{id}")
+    public String post(@PathVariable Long id,
+                       Model model) {
+        Optional<Post> postOptional = postRepository.findById(id);
+
+        postOptional.ifPresent(post -> {
+            model.addAttribute("post", post);
+        });
+
+
+        return "post";
+    }
+
+    @RequestMapping("/post/delete/{id}")
+    public String deletePost(@PathVariable Long id,
+                             Model model) throws IOException {
+        Optional<Post> postOptional = postRepository.findById(id);
+
+        Files.delete(Paths.get(uploadDirectory, postOptional.get().getPostImg()));
+        postRepository.delete(postOptional.get());
+
+        return "redirect:/";
+    }
+
 
 }

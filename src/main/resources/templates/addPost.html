@@ -73,7 +73,7 @@
 <main role="main">
 
     <h1>Tu dodasz posta</h1>
-    <form th:action="@{/addPost}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/postAdded}" method="post" enctype="multipart/form-data">
         <div class="form-group col-sm-8">
             <label for="title">Example label</label>
             <input type="text" th:name="title" class="form-control" id="title" placeholder="Tytuł">
